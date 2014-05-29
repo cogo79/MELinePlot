@@ -1,0 +1,6 @@
+MELinePlot.xcodeproj/
+MELinePlot/*
+!MELinePlot/MELinePlotView.h
+!MELinePlot/MELinePlotView.m
+MELinePlotTests/
+.DS_Store
