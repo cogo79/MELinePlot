@@ -22,10 +22,15 @@
 
 @property (nonatomic, strong) UIColor *axisColor;
 
-@property (nonatomic, strong) NSNumber *topValueForXAxis;
-@property (nonatomic, strong) NSNumber *topValueForYAxis;
-@property (nonatomic, strong) NSNumber *stepsForXAxis;
-@property (nonatomic, strong) NSNumber *stepsForYAxis;
+@property (nonatomic, strong) NSNumber *topValue_X;
+@property (nonatomic, strong) NSNumber *topValue_Y;
+@property (nonatomic, strong) NSNumber *steps_X;
+@property (nonatomic, strong) NSNumber *steps_Y;
+@property (nonatomic, strong) NSNumber *labelEveryXStep_X;
+@property (nonatomic, strong) NSNumber *labelEveryXStep_Y;
+@property (nonatomic, strong) UIColor *labeledStepColor_X;
+@property (nonatomic, strong) UIColor *labeledStepColor_Y;
+
 @property (nonatomic, strong) NSNumber *distanceBetweenLastStepAndTip_X;
 @property (nonatomic, strong) NSNumber *distanceBetweenLastStepAndTip_Y;
 @property (nonatomic, strong) NSNumber *stepLength_X;

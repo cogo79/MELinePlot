@@ -54,17 +54,17 @@
     if (_axisColor == nil) {
         _axisColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     }
-    if (_topValueForXAxis == nil) {
-        _topValueForXAxis = [NSNumber numberWithFloat:10];
+    if (_topValue_X == nil) {
+        _topValue_X = [NSNumber numberWithFloat:10];
     }
-    if (_topValueForYAxis == nil) {
-        _topValueForYAxis = [NSNumber numberWithFloat:10];
+    if (_topValue_Y == nil) {
+        _topValue_Y = [NSNumber numberWithFloat:10];
     }
-    if (_stepsForXAxis == nil) {
-        _stepsForXAxis = [NSNumber numberWithFloat:5];
+    if (_steps_X == nil) {
+        _steps_X = [NSNumber numberWithFloat:5];
     }
-    if (_stepsForYAxis == nil) {
-        _stepsForYAxis = [NSNumber numberWithFloat:5];
+    if (_steps_Y == nil) {
+        _steps_Y = [NSNumber numberWithFloat:5];
     }
     if (_distanceBetweenLastStepAndTip_X == nil) {
         _distanceBetweenLastStepAndTip_X = [NSNumber numberWithInt:4];
