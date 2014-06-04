@@ -1,6 +1,5 @@
 //
-//  MEPlotView.m
-//  CPlot
+//  MELinePlotView.m
 //
 //  Created by Student vid Yrkeshögskola C3L on 1/20/14.
 //  Copyright (c) 2014 Powerhouse. All rights reserved.
@@ -99,9 +98,13 @@
     if (_stepColor_X == nil) {
         _stepColor_X = [UIColor redColor];
     }
+    if (_stepColor_Y == nil) {
+        _stepColor_Y = [UIColor redColor];
+    }
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     [self drawXAndYAxis:rect context:ctx];
-    [self drawStepsForXAndYAxis:rect context:ctx];
+    [self drawStepsForXAxis:rect context:ctx];
+    [self drawStepsForYAxis:rect context:ctx];
     
     /*
      CGContextBeginPath(ctx);
@@ -140,10 +143,9 @@
     CGContextFillPath(ctx);
 }
 
--(void) drawStepsForXAndYAxis:(CGRect)rect context:(CGContextRef) ctx {
-    // We begin with drawing steps for x axis.
+-(void) drawStepsForXAxis:(CGRect)rect context:(CGContextRef) ctx {
     CGContextBeginPath(ctx);
-    CGPoint startPoint = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
+    CGPoint startPoint = CGPointMake(/*rect.origin.x+*/[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
     CGPoint endPoint = CGPointMake(rect.size.width-[_xAxisTipOffset intValue] - [_axisTipSize intValue] - [_distanceBetweenLastStepAndTip_X intValue], startPoint.y);
     int pixelsOnXAxis = endPoint.x - startPoint.x + 1;
     CGPoint stepStart = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]-_stepLength_X.intValue/2);
@@ -175,20 +177,51 @@
             CGContextAddLineToPoint(ctx, stepEnd.x, stepEnd.y);
         }
     }
-    
-    
     CGContextStrokePath(ctx);
-    /*
-     CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
-     CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
-     
-     CGContextMoveToPoint(ctx, stepStart.x +10, stepStart.y);
-     CGContextAddLineToPoint(ctx, stepEnd.x+10, stepEnd.y);
-     
-     //    CGContextFillPath(ctx);
-     */
-    
 }
+
+-(void) drawStepsForYAxis:(CGRect)rect context:(CGContextRef) ctx {
+    CGContextBeginPath(ctx);
+    CGPoint startPoint = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
+    CGPoint endPoint = CGPointMake(startPoint.x, [_yAxisTipOffset intValue] + [_axisTipSize intValue] + [_distanceBetweenLastStepAndTip_Y intValue]);
+    
+    int pixelsOnYAxis = startPoint.y + 1 - endPoint.y;
+    /*So far so good translated*/
+    NSLog(@"rect.origin.y: %f", rect.origin.y);
+ // CGPoint stepStart = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]-_stepLength_X.intValue/2);
+    CGPoint stepStart = CGPointMake(startPoint.x-_stepLength_Y.intValue/2, startPoint.y);
+    CGPoint stepEnd = CGPointMake(stepStart.x + _stepLength_Y.intValue, stepStart.y);
+    CGPoint labeledStepStart = CGPointMake(startPoint.x - _labeledStepLength_Y.intValue / 2, startPoint.y);
+    CGPoint labeledStepEnd = CGPointMake(stepStart.x + _labeledStepLength_Y.intValue, stepStart.y);
+    
+    CGFloat stepColorRed_Y = 0.0, stepColorGreen_Y = 0.0, stepColorBlue_Y = 0.0, stepColorAlpha_Y = 0.0;
+    [_stepColor_Y getRed:&stepColorRed_Y green:&stepColorGreen_Y blue:&stepColorBlue_Y alpha:&stepColorAlpha_Y];
+    CGFloat axisStepColorCGFloat[4] = {stepColorRed_Y, stepColorGreen_Y, stepColorBlue_Y, stepColorAlpha_Y};
+    CGContextSetStrokeColor(ctx, axisStepColorCGFloat);
+    
+    CGContextBeginPath(ctx);
+    CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
+    CGContextAddLineToPoint(ctx, startPoint.x, startPoint.y);
+    int pixelsForward = pixelsOnYAxis/_steps_Y.intValue;
+    
+    for (int i=1; i<=[_steps_Y intValue]; i++) {
+        stepStart.y -= pixelsForward;
+        stepEnd.y -= pixelsForward;
+        
+        if  (fmod(i, [_labelEveryXStep_Y intValue]) == 0) {
+            labeledStepStart.y = stepStart.y;
+            labeledStepEnd.y = stepEnd.y;
+            CGContextMoveToPoint(ctx, labeledStepStart.x, labeledStepStart.y);
+            CGContextAddLineToPoint(ctx, labeledStepEnd.x, labeledStepEnd.y);
+        } else {
+            CGContextMoveToPoint(ctx, stepStart.x, stepStart.y);
+            CGContextAddLineToPoint(ctx, stepEnd.x, stepEnd.y);
+        }
+    }
+    CGContextStrokePath(ctx);
+}
+
+
 
 /*
  -(void) setAxisRGBColorWithRed:(CGFloat) red Green:(CGFloat) green Blue:(CGFloat) blue Alpha:(CGFloat) alpha {
@@ -199,9 +232,6 @@
 @end
 
 
-/*
- Techniques used include Objective-C, Xcode, Cocoa Touch, and Git.
- */
 
 
 
