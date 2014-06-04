@@ -148,10 +148,10 @@
     CGPoint startPoint = CGPointMake(/*rect.origin.x+*/[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
     CGPoint endPoint = CGPointMake(rect.size.width-[_xAxisTipOffset intValue] - [_axisTipSize intValue] - [_distanceBetweenLastStepAndTip_X intValue], startPoint.y);
     int pixelsOnXAxis = endPoint.x - startPoint.x + 1;
-    CGPoint stepStart = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]-_stepLength_X.intValue/2);
+    CGPoint stepStart = CGPointMake(startPoint.x, startPoint.y - _stepLength_X.intValue/2);
     CGPoint stepEnd = CGPointMake(stepStart.x, stepStart.y+_stepLength_X.intValue);
-    CGPoint labeledStepStart = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]-_labeledStepLength_X.intValue/2);
-    CGPoint labeledStepEnd = CGPointMake(stepStart.x, stepStart.y+_labeledStepLength_X.intValue);
+    CGPoint labeledStepStart = CGPointMake(startPoint.x, startPoint.y - _labeledStepLength_X.intValue / 2);
+    CGPoint labeledStepEnd = CGPointMake(stepStart.x, labeledStepStart.y + _labeledStepLength_X.intValue);
     
     CGFloat stepColorRed_X = 0.0, stepColorGreen_X = 0.0, stepColorBlue_X = 0.0, stepColorAlpha_X = 0.0;
     [_stepColor_X getRed:&stepColorRed_X green:&stepColorGreen_X blue:&stepColorBlue_X alpha:&stepColorAlpha_X];
@@ -188,7 +188,7 @@
     CGPoint stepStart = CGPointMake(startPoint.x-_stepLength_Y.intValue/2, startPoint.y);
     CGPoint stepEnd = CGPointMake(stepStart.x + _stepLength_Y.intValue, stepStart.y);
     CGPoint labeledStepStart = CGPointMake(startPoint.x - _labeledStepLength_Y.intValue / 2, startPoint.y);
-    CGPoint labeledStepEnd = CGPointMake(stepStart.x + _labeledStepLength_Y.intValue, stepStart.y);
+    CGPoint labeledStepEnd = CGPointMake(labeledStepStart.x + _labeledStepLength_Y.intValue, stepStart.y);
     
     CGFloat stepColorRed_Y = 0.0, stepColorGreen_Y = 0.0, stepColorBlue_Y = 0.0, stepColorAlpha_Y = 0.0;
     [_stepColor_Y getRed:&stepColorRed_Y green:&stepColorGreen_Y blue:&stepColorBlue_Y alpha:&stepColorAlpha_Y];
