@@ -32,6 +32,8 @@
 @property (nonatomic, strong) UIColor *labeledStepColor_Y;
 @property (nonatomic, strong) NSNumber *labeledStepLength_X;
 @property (nonatomic, strong) NSNumber *labeledStepLength_Y;
+@property (nonatomic, strong) UIColor *labelColor_X;
+@property (nonatomic, strong) UIColor *labelColor_Y;
 
 @property (nonatomic, strong) NSNumber *distanceBetweenLastStepAndTip_X;
 @property (nonatomic, strong) NSNumber *distanceBetweenLastStepAndTip_Y;
@@ -40,8 +42,5 @@
 @property (nonatomic, strong) UIColor *stepColor_X;
 @property (nonatomic, strong) UIColor *stepColor_Y;
 
-//-(void) setAxisRGBColorWithRed:(CGFloat) red Green:(CGFloat) green Blue:(CGFloat) blue Alpha:(CGFloat) alpha;
-
--(void) drawLineFromPoint:(CGPoint) start toPoint:(CGPoint) end;
 
 @end

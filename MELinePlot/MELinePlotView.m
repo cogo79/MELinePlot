@@ -19,11 +19,6 @@
     return self;
 }
 
--(void) drawLineFromPoint:(CGPoint) start toPoint:(CGPoint) end
-{
-    
-}
-
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -54,10 +49,10 @@
         _axisColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     }
     if (_topValue_X == nil) {
-        _topValue_X = [NSNumber numberWithFloat:10];
+        _topValue_X = [NSNumber numberWithFloat:20];
     }
     if (_topValue_Y == nil) {
-        _topValue_Y = [NSNumber numberWithFloat:10];
+        _topValue_Y = [NSNumber numberWithFloat:20];
     }
     if (_steps_X == nil) {
         _steps_X = [NSNumber numberWithFloat:10];
@@ -144,7 +139,7 @@
 }
 
 -(void) drawStepsForXAxis:(CGRect)rect context:(CGContextRef) ctx {
- //   CGContextBeginPath(ctx);
+    //   CGContextBeginPath(ctx);
     CGPoint startPoint = CGPointMake(/*rect.origin.x+*/[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
     CGPoint endPoint = CGPointMake(rect.size.width-[_xAxisTipOffset intValue] - [_axisTipSize intValue] - [_distanceBetweenLastStepAndTip_X intValue], startPoint.y);
     int pixelsOnXAxis = endPoint.x - startPoint.x + 1;
@@ -163,7 +158,7 @@
     CGFloat axisLabeledStepColorCGFloat[4] = {labeledStepColorRed_X, labeledStepColorGreen_X, labeledStepColorBlue_X, labeledStepColorAlpha_X};
     
     
-
+    
     int pixelsForward = pixelsOnXAxis/_steps_X.intValue;
     
     for (int i=1; i<=[_steps_X intValue]; i++) {
@@ -179,6 +174,10 @@
             CGContextAddLineToPoint(ctx, labeledStepEnd.x, labeledStepEnd.y);
             
             CGContextStrokePath(ctx);
+            
+            CGPoint labelPoint = CGPointMake(stepStart.x, startPoint.y);
+            CGFloat labelValue = _topValue_X.floatValue / _steps_X.floatValue * i;
+            [self drawLabelFor_X_AxisAtPoint:labelPoint labelValue:labelValue rect:rect context:ctx];
         } else {
             CGContextSetStrokeColor(ctx, axisStepColorCGFloat);
             CGContextBeginPath(ctx);
@@ -210,7 +209,7 @@
     CGFloat axisLabeledStepColorCGFloat[4] = {labeledStepColorRed_Y, labeledStepColorGreen_Y, labeledStepColorBlue_Y, labeledStepColorAlpha_Y};
     
     
-
+    
     int pixelsForward = pixelsOnYAxis/_steps_Y.intValue;
     
     for (int i=1; i<=[_steps_Y intValue]; i++) {
@@ -225,6 +224,13 @@
             CGContextMoveToPoint(ctx, labeledStepStart.x, labeledStepStart.y);
             CGContextAddLineToPoint(ctx, labeledStepEnd.x, labeledStepEnd.y);
             CGContextStrokePath(ctx);
+            
+            CGPoint labelPoint = CGPointMake(startPoint.x, stepStart.y);
+            
+            CGFloat labelValue = _topValue_Y.floatValue / _steps_Y.floatValue * i;
+            
+            [self drawLabelFor_Y_AxisAtPoint:labelPoint labelValue:labelValue rect:rect context:ctx];
+            
         } else {
             CGContextSetStrokeColor(ctx, axisStepColorCGFloat);
             CGContextBeginPath(ctx);
@@ -233,16 +239,46 @@
             CGContextStrokePath(ctx);
         }
     }
-    
 }
 
+-(void) drawLabelFor_Y_AxisAtPoint:(CGPoint) labelPoint labelValue:(CGFloat) labelValue rect:(CGRect)rect context:(CGContextRef) ctx {
+    
+    NSNumber *labelValueNumber = [NSNumber numberWithFloat:labelValue];
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.roundingIncrement = [NSNumber numberWithFloat:0.00001];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    NSString *label = [NSString stringWithFormat:@"%@", [formatter stringFromNumber:labelValueNumber]];
+    
+    labelPoint.x -= 25;
+    [label drawAtPoint:labelPoint
+              forWidth:150
+              withFont:[UIFont fontWithName:@"Arial" size:0]
+              fontSize:15
+         lineBreakMode:NSLineBreakByClipping
+    baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+}
 
+-(void) drawLabelFor_X_AxisAtPoint:(CGPoint) labelPoint labelValue:(CGFloat) labelValue rect:(CGRect)rect context:(CGContextRef) ctx {
+    NSNumber *labelValueNumber = [NSNumber numberWithFloat:labelValue];
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.roundingIncrement = [NSNumber numberWithFloat:0.00001];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    NSString *label = [NSString stringWithFormat:@"%@", [formatter stringFromNumber:labelValueNumber]];
+    
+    labelPoint.y += 14;
+    labelPoint.x -= 5;
+    [label drawAtPoint:labelPoint
+              forWidth:1500
+              withFont:[UIFont fontWithName:@"Arial" size:0]
+              fontSize:15
+         lineBreakMode:NSLineBreakByClipping
+    baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+}
 
-/*
- -(void) setAxisRGBColorWithRed:(CGFloat) red Green:(CGFloat) green Blue:(CGFloat) blue Alpha:(CGFloat) alpha {
- 
- }
- */
 
 @end
 
