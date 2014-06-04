@@ -159,8 +159,7 @@
     CGContextSetStrokeColor(ctx, axisStepColorCGFloat);
     
     CGContextBeginPath(ctx);
-    CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
-    CGContextAddLineToPoint(ctx, startPoint.x, startPoint.y);
+
     int pixelsForward = pixelsOnXAxis/_steps_X.intValue;
     
     for (int i=1; i<=[_steps_X intValue]; i++) {
@@ -186,9 +185,6 @@
     CGPoint endPoint = CGPointMake(startPoint.x, [_yAxisTipOffset intValue] + [_axisTipSize intValue] + [_distanceBetweenLastStepAndTip_Y intValue]);
     
     int pixelsOnYAxis = startPoint.y + 1 - endPoint.y;
-    /*So far so good translated*/
-    NSLog(@"rect.origin.y: %f", rect.origin.y);
- // CGPoint stepStart = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]-_stepLength_X.intValue/2);
     CGPoint stepStart = CGPointMake(startPoint.x-_stepLength_Y.intValue/2, startPoint.y);
     CGPoint stepEnd = CGPointMake(stepStart.x + _stepLength_Y.intValue, stepStart.y);
     CGPoint labeledStepStart = CGPointMake(startPoint.x - _labeledStepLength_Y.intValue / 2, startPoint.y);
@@ -200,8 +196,7 @@
     CGContextSetStrokeColor(ctx, axisStepColorCGFloat);
     
     CGContextBeginPath(ctx);
-    CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
-    CGContextAddLineToPoint(ctx, startPoint.x, startPoint.y);
+
     int pixelsForward = pixelsOnYAxis/_steps_Y.intValue;
     
     for (int i=1; i<=[_steps_Y intValue]; i++) {
