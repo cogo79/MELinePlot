@@ -72,10 +72,10 @@
         _labelEveryXStep_Y = [NSNumber numberWithInt:3];
     }
     if (_labeledStepColor_X == nil) {
-        _labeledStepColor_X = [UIColor redColor];
+        _labeledStepColor_X = [UIColor blueColor];
     }
     if (_labeledStepColor_Y == nil) {
-        _labeledStepColor_Y = [UIColor redColor];
+        _labeledStepColor_Y = [UIColor blueColor];
     }
     if (_labeledStepLength_X == nil) {
         _labeledStepLength_X = [NSNumber numberWithInt:10];
@@ -144,7 +144,7 @@
 }
 
 -(void) drawStepsForXAxis:(CGRect)rect context:(CGContextRef) ctx {
-    CGContextBeginPath(ctx);
+ //   CGContextBeginPath(ctx);
     CGPoint startPoint = CGPointMake(/*rect.origin.x+*/[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
     CGPoint endPoint = CGPointMake(rect.size.width-[_xAxisTipOffset intValue] - [_axisTipSize intValue] - [_distanceBetweenLastStepAndTip_X intValue], startPoint.y);
     int pixelsOnXAxis = endPoint.x - startPoint.x + 1;
@@ -156,9 +156,13 @@
     CGFloat stepColorRed_X = 0.0, stepColorGreen_X = 0.0, stepColorBlue_X = 0.0, stepColorAlpha_X = 0.0;
     [_stepColor_X getRed:&stepColorRed_X green:&stepColorGreen_X blue:&stepColorBlue_X alpha:&stepColorAlpha_X];
     CGFloat axisStepColorCGFloat[4] = {stepColorRed_X, stepColorGreen_X, stepColorBlue_X, stepColorAlpha_X};
-    CGContextSetStrokeColor(ctx, axisStepColorCGFloat);
     
-    CGContextBeginPath(ctx);
+    
+    CGFloat labeledStepColorRed_X = 0.0, labeledStepColorGreen_X = 0.0, labeledStepColorBlue_X = 0.0, labeledStepColorAlpha_X = 0.0;
+    [_labeledStepColor_X getRed:&labeledStepColorRed_X green:&labeledStepColorGreen_X blue:&labeledStepColorBlue_X alpha:&labeledStepColorAlpha_X];
+    CGFloat axisLabeledStepColorCGFloat[4] = {labeledStepColorRed_X, labeledStepColorGreen_X, labeledStepColorBlue_X, labeledStepColorAlpha_X};
+    
+    
 
     int pixelsForward = pixelsOnXAxis/_steps_X.intValue;
     
@@ -167,20 +171,27 @@
         stepEnd.x += pixelsForward;
         
         if  (fmod(i, [_labelEveryXStep_X intValue]) == 0) {
+            CGContextSetStrokeColor(ctx, axisLabeledStepColorCGFloat);
+            CGContextBeginPath(ctx);
             labeledStepStart.x = stepStart.x;
             labeledStepEnd.x = stepEnd.x;
             CGContextMoveToPoint(ctx, labeledStepStart.x, labeledStepStart.y);
             CGContextAddLineToPoint(ctx, labeledStepEnd.x, labeledStepEnd.y);
+            
+            CGContextStrokePath(ctx);
         } else {
+            CGContextSetStrokeColor(ctx, axisStepColorCGFloat);
+            CGContextBeginPath(ctx);
             CGContextMoveToPoint(ctx, stepStart.x, stepStart.y);
             CGContextAddLineToPoint(ctx, stepEnd.x, stepEnd.y);
+            
+            CGContextStrokePath(ctx);
         }
     }
-    CGContextStrokePath(ctx);
+    
 }
 
 -(void) drawStepsForYAxis:(CGRect)rect context:(CGContextRef) ctx {
-    CGContextBeginPath(ctx);
     CGPoint startPoint = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
     CGPoint endPoint = CGPointMake(startPoint.x, [_yAxisTipOffset intValue] + [_axisTipSize intValue] + [_distanceBetweenLastStepAndTip_Y intValue]);
     
@@ -193,9 +204,12 @@
     CGFloat stepColorRed_Y = 0.0, stepColorGreen_Y = 0.0, stepColorBlue_Y = 0.0, stepColorAlpha_Y = 0.0;
     [_stepColor_Y getRed:&stepColorRed_Y green:&stepColorGreen_Y blue:&stepColorBlue_Y alpha:&stepColorAlpha_Y];
     CGFloat axisStepColorCGFloat[4] = {stepColorRed_Y, stepColorGreen_Y, stepColorBlue_Y, stepColorAlpha_Y};
-    CGContextSetStrokeColor(ctx, axisStepColorCGFloat);
     
-    CGContextBeginPath(ctx);
+    CGFloat labeledStepColorRed_Y = 0.0, labeledStepColorGreen_Y = 0.0, labeledStepColorBlue_Y = 0.0, labeledStepColorAlpha_Y = 0.0;
+    [_labeledStepColor_X getRed:&labeledStepColorRed_Y green:&labeledStepColorGreen_Y blue:&labeledStepColorBlue_Y alpha:&labeledStepColorAlpha_Y];
+    CGFloat axisLabeledStepColorCGFloat[4] = {labeledStepColorRed_Y, labeledStepColorGreen_Y, labeledStepColorBlue_Y, labeledStepColorAlpha_Y};
+    
+    
 
     int pixelsForward = pixelsOnYAxis/_steps_Y.intValue;
     
@@ -204,16 +218,22 @@
         stepEnd.y -= pixelsForward;
         
         if  (fmod(i, [_labelEveryXStep_Y intValue]) == 0) {
+            CGContextSetStrokeColor(ctx, axisLabeledStepColorCGFloat);
+            CGContextBeginPath(ctx);
             labeledStepStart.y = stepStart.y;
             labeledStepEnd.y = stepEnd.y;
             CGContextMoveToPoint(ctx, labeledStepStart.x, labeledStepStart.y);
             CGContextAddLineToPoint(ctx, labeledStepEnd.x, labeledStepEnd.y);
+            CGContextStrokePath(ctx);
         } else {
+            CGContextSetStrokeColor(ctx, axisStepColorCGFloat);
+            CGContextBeginPath(ctx);
             CGContextMoveToPoint(ctx, stepStart.x, stepStart.y);
             CGContextAddLineToPoint(ctx, stepEnd.x, stepEnd.y);
+            CGContextStrokePath(ctx);
         }
     }
-    CGContextStrokePath(ctx);
+    
 }
 
 
