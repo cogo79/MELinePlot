@@ -61,10 +61,28 @@
         _topValue_Y = [NSNumber numberWithFloat:10];
     }
     if (_steps_X == nil) {
-        _steps_X = [NSNumber numberWithFloat:5];
+        _steps_X = [NSNumber numberWithFloat:10];
     }
     if (_steps_Y == nil) {
-        _steps_Y = [NSNumber numberWithFloat:5];
+        _steps_Y = [NSNumber numberWithFloat:10];
+    }
+    if (_labelEveryXStep_X == nil) {
+        _labelEveryXStep_X = [NSNumber numberWithInt:3];
+    }
+    if (_labelEveryXStep_Y == nil) {
+        _labelEveryXStep_Y = [NSNumber numberWithInt:3];
+    }
+    if (_labeledStepColor_X == nil) {
+        _labeledStepColor_X = [UIColor redColor];
+    }
+    if (_labeledStepColor_Y == nil) {
+        _labeledStepColor_Y = [UIColor redColor];
+    }
+    if (_labeledStepLength_X == nil) {
+        _labeledStepLength_X = [NSNumber numberWithInt:10];
+    }
+    if (_labeledStepLength_Y == nil) {
+        _labeledStepLength_Y = [NSNumber numberWithInt:10];
     }
     if (_distanceBetweenLastStepAndTip_X == nil) {
         _distanceBetweenLastStepAndTip_X = [NSNumber numberWithInt:4];
@@ -73,10 +91,10 @@
         _distanceBetweenLastStepAndTip_Y = [NSNumber numberWithInt:4];
     }
     if (_stepLength_X == nil) {
-        _stepLength_X = [NSNumber numberWithInt:10];
+        _stepLength_X = [NSNumber numberWithInt:6];
     }
     if (_stepLength_Y == nil) {
-        _stepLength_Y = [NSNumber numberWithInt:10];
+        _stepLength_Y = [NSNumber numberWithInt:6];
     }
     if (_stepColor_X == nil) {
         _stepColor_X = [UIColor redColor];
@@ -130,6 +148,8 @@
     int pixelsOnXAxis = endPoint.x - startPoint.x + 1;
     CGPoint stepStart = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]-_stepLength_X.intValue/2);
     CGPoint stepEnd = CGPointMake(stepStart.x, stepStart.y+_stepLength_X.intValue);
+    CGPoint labeledStepStart = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]-_labeledStepLength_X.intValue/2);
+    CGPoint labeledStepEnd = CGPointMake(stepStart.x, stepStart.y+_labeledStepLength_X.intValue);
     
     CGFloat stepColorRed_X = 0.0, stepColorGreen_X = 0.0, stepColorBlue_X = 0.0, stepColorAlpha_X = 0.0;
     [_stepColor_X getRed:&stepColorRed_X green:&stepColorGreen_X blue:&stepColorBlue_X alpha:&stepColorAlpha_X];
@@ -138,14 +158,36 @@
     
     CGContextBeginPath(ctx);
     CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
-    CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
+    CGContextAddLineToPoint(ctx, startPoint.x, startPoint.y);
+    int pixelsForward = pixelsOnXAxis/_steps_X.intValue;
     
-    CGContextMoveToPoint(ctx, stepStart.x +10, stepStart.y);
-    CGContextAddLineToPoint(ctx, stepEnd.x+10, stepEnd.y);
+    for (int i=1; i<=[_steps_X intValue]; i++) {
+        stepStart.x += pixelsForward;
+        stepEnd.x += pixelsForward;
+        
+        if  (fmod(i, [_labelEveryXStep_X intValue]) == 0) {
+            labeledStepStart.x = stepStart.x;
+            labeledStepEnd.x = stepEnd.x;
+            CGContextMoveToPoint(ctx, labeledStepStart.x, labeledStepStart.y);
+            CGContextAddLineToPoint(ctx, labeledStepEnd.x, labeledStepEnd.y);
+        } else {
+            CGContextMoveToPoint(ctx, stepStart.x, stepStart.y);
+            CGContextAddLineToPoint(ctx, stepEnd.x, stepEnd.y);
+        }
+    }
     
-    //    CGContextFillPath(ctx);
     
     CGContextStrokePath(ctx);
+    /*
+     CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
+     CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
+     
+     CGContextMoveToPoint(ctx, stepStart.x +10, stepStart.y);
+     CGContextAddLineToPoint(ctx, stepEnd.x+10, stepEnd.y);
+     
+     //    CGContextFillPath(ctx);
+     */
+    
 }
 
 /*
@@ -158,7 +200,7 @@
 
 
 /*
-Techniques used include Objective-C, Xcode, Cocoa Touch, and Git.
+ Techniques used include Objective-C, Xcode, Cocoa Touch, and Git.
  */
 
 

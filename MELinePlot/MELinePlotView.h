@@ -30,6 +30,8 @@
 @property (nonatomic, strong) NSNumber *labelEveryXStep_Y;
 @property (nonatomic, strong) UIColor *labeledStepColor_X;
 @property (nonatomic, strong) UIColor *labeledStepColor_Y;
+@property (nonatomic, strong) NSNumber *labeledStepLength_X;
+@property (nonatomic, strong) NSNumber *labeledStepLength_Y;
 
 @property (nonatomic, strong) NSNumber *distanceBetweenLastStepAndTip_X;
 @property (nonatomic, strong) NSNumber *distanceBetweenLastStepAndTip_Y;
