@@ -7,6 +7,10 @@
 
 #import "MELinePlotView.h"
 
+@implementation MEPointZero
+
+@end
+
 @implementation MELinePlotView
 
 - (id)initWithFrame:(CGRect)frame
@@ -24,12 +28,19 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    /*
     if (_xAxisOffset == nil) {
         _xAxisOffset = [NSNumber numberWithInt:30];
     }
     if (_yAxisOffset == nil) {
         _yAxisOffset = [NSNumber numberWithInt:30];
     }
+     */
+    if (_pointZero == nil) {
+        _pointZero = [[MEPointZero alloc] init];
+        _pointZero.x = 30;
+        _pointZero.y = rect.size.height-30;
+    }//    CGPoint startPoint = CGPointMake(/*rect.origin.x+*/[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
     if (_xAxisTipOffset == nil) {
         _xAxisTipOffset = [NSNumber numberWithInt:30];
     }
@@ -116,6 +127,7 @@
     CGContextSetFillColor(ctx, axisColorCGFloat);
     CGContextSetStrokeColor(ctx, axisColorCGFloat);
     
+    /*
     CGContextBeginPath(ctx);
     CGContextMoveToPoint(ctx, rect.origin.x+[_xAxisOffset intValue], rect.origin.y+[_yAxisTipOffset intValue]);
     CGContextAddLineToPoint(ctx, rect.origin.x+[_xAxisOffset intValue]+[_axisTipSize intValue], rect.origin.y+[_yAxisTipOffset intValue]+[_axisTipSize intValue]);
@@ -136,16 +148,17 @@
     CGContextAddLineToPoint(ctx, rect.size.width-[_xAxisTipOffset intValue]-[_axisTipSize intValue], rect.size.height-[_yAxisOffset intValue]-[_axisTipSize intValue]);
     CGContextAddLineToPoint(ctx, rect.size.width-[_xAxisTipOffset intValue], rect.size.height-[_yAxisOffset intValue]);
     CGContextFillPath(ctx);
+     */
 }
 
 -(void) drawStepsForXAxis:(CGRect)rect context:(CGContextRef) ctx {
     //   CGContextBeginPath(ctx);
-    CGPoint startPoint = CGPointMake(/*rect.origin.x+*/[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
-    CGPoint endPoint = CGPointMake(rect.size.width-[_xAxisTipOffset intValue] - [_axisTipSize intValue] - [_distanceBetweenLastStepAndTip_X intValue], startPoint.y);
-    int pixelsOnXAxis = endPoint.x - startPoint.x + 1;
-    CGPoint stepStart = CGPointMake(startPoint.x, startPoint.y - _stepLength_X.intValue/2);
+//    CGPoint startPoint = CGPointMake(/*rect.origin.x+*/[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
+    CGPoint endPoint = CGPointMake(rect.size.width-[_xAxisTipOffset intValue] - [_axisTipSize intValue] - [_distanceBetweenLastStepAndTip_X intValue], _pointZero.y);
+    int pixelsOnXAxis = endPoint.x - _pointZero.x + 1;
+    CGPoint stepStart = CGPointMake(_pointZero.x, _pointZero.y - _stepLength_X.intValue/2);
     CGPoint stepEnd = CGPointMake(stepStart.x, stepStart.y+_stepLength_X.intValue);
-    CGPoint labeledStepStart = CGPointMake(startPoint.x, startPoint.y - _labeledStepLength_X.intValue / 2);
+    CGPoint labeledStepStart = CGPointMake(_pointZero.x, _pointZero.y - _labeledStepLength_X.intValue / 2);
     CGPoint labeledStepEnd = CGPointMake(stepStart.x, labeledStepStart.y + _labeledStepLength_X.intValue);
     
     CGFloat stepColorRed_X = 0.0, stepColorGreen_X = 0.0, stepColorBlue_X = 0.0, stepColorAlpha_X = 0.0;
@@ -175,7 +188,7 @@
             
             CGContextStrokePath(ctx);
             
-            CGPoint labelPoint = CGPointMake(stepStart.x, startPoint.y);
+            CGPoint labelPoint = CGPointMake(stepStart.x, _pointZero.y);
             CGFloat labelValue = _topValue_X.floatValue / _steps_X.floatValue * i;
             [self drawLabelFor_X_AxisAtPoint:labelPoint labelValue:labelValue rect:rect context:ctx];
         } else {
@@ -191,13 +204,13 @@
 }
 
 -(void) drawStepsForYAxis:(CGRect)rect context:(CGContextRef) ctx {
-    CGPoint startPoint = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
-    CGPoint endPoint = CGPointMake(startPoint.x, [_yAxisTipOffset intValue] + [_axisTipSize intValue] + [_distanceBetweenLastStepAndTip_Y intValue]);
+//    CGPoint startPoint = CGPointMake(rect.origin.x+[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
+    CGPoint endPoint = CGPointMake(_pointZero.x, [_yAxisTipOffset intValue] + [_axisTipSize intValue] + [_distanceBetweenLastStepAndTip_Y intValue]);
     
-    int pixelsOnYAxis = startPoint.y + 1 - endPoint.y;
-    CGPoint stepStart = CGPointMake(startPoint.x-_stepLength_Y.intValue/2, startPoint.y);
+    int pixelsOnYAxis = _pointZero.y + 1 - endPoint.y;
+    CGPoint stepStart = CGPointMake(_pointZero.x-_stepLength_Y.intValue/2, _pointZero.y);
     CGPoint stepEnd = CGPointMake(stepStart.x + _stepLength_Y.intValue, stepStart.y);
-    CGPoint labeledStepStart = CGPointMake(startPoint.x - _labeledStepLength_Y.intValue / 2, startPoint.y);
+    CGPoint labeledStepStart = CGPointMake(_pointZero.x - _labeledStepLength_Y.intValue / 2, _pointZero.y);
     CGPoint labeledStepEnd = CGPointMake(labeledStepStart.x + _labeledStepLength_Y.intValue, stepStart.y);
     
     CGFloat stepColorRed_Y = 0.0, stepColorGreen_Y = 0.0, stepColorBlue_Y = 0.0, stepColorAlpha_Y = 0.0;
@@ -225,7 +238,7 @@
             CGContextAddLineToPoint(ctx, labeledStepEnd.x, labeledStepEnd.y);
             CGContextStrokePath(ctx);
             
-            CGPoint labelPoint = CGPointMake(startPoint.x, stepStart.y);
+            CGPoint labelPoint = CGPointMake(_pointZero.x, stepStart.y);
             
             CGFloat labelValue = _topValue_Y.floatValue / _steps_Y.floatValue * i;
             
