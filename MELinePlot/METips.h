@@ -11,4 +11,9 @@
 
 @interface METips : NSObject
 @property METip *north,*south,*west,*east;
+
+-(id) initWithNorth:(METip*) north south:(METip*) south west:(METip*) west east:(METip*) east;
+
++(id) tipsWithNorth:(METip*) north south:(METip*) south west:(METip*) west east:(METip*) east;
+
 @end

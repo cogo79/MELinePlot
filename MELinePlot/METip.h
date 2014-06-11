@@ -10,6 +10,11 @@
 
 @interface METip : NSObject
 @property int length, width;
+
+-(id) initWithLength:(int) length width:(int) width;
+
++(id) tipWithLength:(int) length width:(int) width;
+
 @end
 
 

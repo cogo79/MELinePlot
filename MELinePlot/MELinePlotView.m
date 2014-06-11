@@ -7,12 +7,6 @@
 
 #import "MELinePlotView.h"
 
-@implementation METips
-@end
-
-@implementation METip
-@end
-
 @implementation MELinePlotView
 
 - (id)initWithFrame:(CGRect)frame
@@ -44,9 +38,8 @@
         _pointZero.y = rect.size.height-30;
     }//    CGPoint startPoint = CGPointMake(/*rect.origin.x+*/[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
     if (_tips == nil) {
-        _tips = [[METips alloc] init];
-        METip *north = [[METip alloc] init];
-        _tips.north = YES; _tips.south = NO; _tips.west = NO; _tips.east = YES;
+        _tips = [METips tipsWithNorth:[METip tipWithLength:8 width:4] south:nil west:nil east:[METip tipWithLength:8 width:4]];
+        
     }
     if (_xAxisTipOffset == nil) {
         _xAxisTipOffset = [NSNumber numberWithInt:30];
