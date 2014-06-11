@@ -10,4 +10,18 @@
 
 @implementation MEPoint
 
+-(id) initWithX:(int) x y:(int) y {
+    self = [super init];
+    if (self) {
+        // Initialization code
+        _x = x;
+        _y  = y;
+    }
+    return self;
+}
+
++(id) pointWithX:(int) x y:(int) y {
+    return [[self alloc] initWithX:x y:y];
+}
+
 @end

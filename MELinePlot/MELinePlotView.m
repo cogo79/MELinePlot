@@ -33,18 +33,16 @@
     }
      */
     if (_pointZero == nil) {
-        _pointZero = [[MEPoint alloc] init];
-        _pointZero.x = 30;
-        _pointZero.y = rect.size.height-30;
+        _pointZero = [MEPoint pointWithX:30 y:rect.size.height-30];
     }//    CGPoint startPoint = CGPointMake(/*rect.origin.x+*/[_xAxisOffset intValue], rect.size.height-[_yAxisOffset intValue]);
     if (_tips == nil) {
         _tips = [METips tipsWithNorth:[METip tipWithLength:8 width:4] south:nil west:nil east:[METip tipWithLength:8 width:4]];
         
     }
-    if (_xAxisTipOffset == nil) {
+    if (_xAxisTipOffset == nil) { // property is to be deleted later
         _xAxisTipOffset = [NSNumber numberWithInt:30];
     }
-    if (_yAxisTipOffset == nil) {
+    if (_yAxisTipOffset == nil) { // property is to be deleted later
         _yAxisTipOffset = [NSNumber numberWithInt:30];
     }
     if (_axisTipSize == nil) {

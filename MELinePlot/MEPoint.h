@@ -10,4 +10,8 @@
 
 @interface MEPoint : NSObject
 @property int x,y;
+
+-(id) initWithX:(int) x y:(int) y;
++(id) pointWithX:(int) x y:(int) y;
+
 @end
