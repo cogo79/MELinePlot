@@ -2,5 +2,11 @@ MELinePlot.xcodeproj/
 MELinePlot/*
 !MELinePlot/MELinePlotView.h
 !MELinePlot/MELinePlotView.m
+!METip.h
+!METip.m
+!METips.h
+!METips.m
+!MEPoint.h
+!MEPoint.m
 MELinePlotTests/
 .DS_Store

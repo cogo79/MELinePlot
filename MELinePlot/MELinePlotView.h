@@ -6,12 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface MEPointZero : NSObject
-
-@property int x,y;
-
-@end
+#import "MEPoint.h"
+#import "METip.h"
+#import "METips.h"
 
 @interface MELinePlotView : UIView
 
@@ -20,7 +17,8 @@
 @property (nonatomic, strong) NSNumber *yAxisOffset;
 */
 
-@property (nonatomic, strong) MEPointZero *pointZero;
+@property (nonatomic, strong) MEPoint *pointZero;
+@property (nonatomic, strong) METips *tips;
 
 @property (nonatomic, strong) NSNumber *xAxisTipOffset;
 @property (nonatomic, strong) NSNumber *yAxisTipOffset;
