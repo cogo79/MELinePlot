@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface METip : NSObject
-@property int length, width;
+@property int length, width, tailLength;
 
--(id) initWithLength:(int) length width:(int) width;
+-(id) initWithLength:(int) length width:(int) width tailLength:(int) tailLength;
 
-+(id) tipWithLength:(int) length width:(int) width;
++(id) tipWithLength:(int) length width:(int) width tailLength:(int) tailLength;
 
 @end
 

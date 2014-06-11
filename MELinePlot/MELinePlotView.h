@@ -12,43 +12,10 @@
 
 @interface MELinePlotView : UIView
 
-/*
-@property (nonatomic, strong) NSNumber *xAxisOffset;
-@property (nonatomic, strong) NSNumber *yAxisOffset;
-*/
 
 @property (nonatomic, strong) MEPoint *pointZero;
 @property (nonatomic, strong) METips *tips;
 
-@property (nonatomic, strong) NSNumber *xAxisTipOffset;
-@property (nonatomic, strong) NSNumber *yAxisTipOffset;
-
-@property (nonatomic, strong) NSNumber *axisTipSize;
-
-@property (nonatomic, strong) NSNumber *overlap_X;
-@property (nonatomic, strong) NSNumber *overlap_Y;
-
-@property (nonatomic, strong) UIColor *axisColor;
-
-@property (nonatomic, strong) NSNumber *topValue_X;
-@property (nonatomic, strong) NSNumber *topValue_Y;
-@property (nonatomic, strong) NSNumber *steps_X;
-@property (nonatomic, strong) NSNumber *steps_Y;
-@property (nonatomic, strong) NSNumber *labelEveryXStep_X;
-@property (nonatomic, strong) NSNumber *labelEveryXStep_Y;
-@property (nonatomic, strong) UIColor *labeledStepColor_X;
-@property (nonatomic, strong) UIColor *labeledStepColor_Y;
-@property (nonatomic, strong) NSNumber *labeledStepLength_X;
-@property (nonatomic, strong) NSNumber *labeledStepLength_Y;
-@property (nonatomic, strong) UIColor *labelColor_X;
-@property (nonatomic, strong) UIColor *labelColor_Y;
-
-@property (nonatomic, strong) NSNumber *distanceBetweenLastStepAndTip_X;
-@property (nonatomic, strong) NSNumber *distanceBetweenLastStepAndTip_Y;
-@property (nonatomic, strong) NSNumber *stepLength_X;
-@property (nonatomic, strong) NSNumber *stepLength_Y;
-@property (nonatomic, strong) UIColor *stepColor_X;
-@property (nonatomic, strong) UIColor *stepColor_Y;
 
 
 @end

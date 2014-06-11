@@ -10,7 +10,7 @@
 
 @implementation METip
 
--(id) initWithLength:(int) length width:(int) width {
+-(id) initWithLength:(int) length width:(int) width tailLength:(int) tailLength {
     self = [super init];
     if (self) {
         // Initialization code
@@ -20,8 +20,8 @@
     return self;
 }
 
-+(id) tipWithLength:(int) length width:(int) width {
-    return [[self alloc] initWithLength:length width:width];
++(id) tipWithLength:(int) length width:(int) width tailLength:(int) tailLength {
+    return [[self alloc] initWithLength:length width:width tailLength:(int) tailLength];
 }
 
 @end
