@@ -6,16 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MEPoint.h"
 #import "METip.h"
-#import "METips.h"
+#import "MEPoint.h"
+#import "MEAxis.h"
 
 @interface MELinePlotView : UIView
 
-
 @property (nonatomic, strong) MEPoint *pointZero;
-@property (nonatomic, strong) METips *tips;
-
-
+@property (nonatomic, strong) MEAxis *axisEast;
+@property (nonatomic, strong) MEAxis *axisWest;
+@property (nonatomic, strong) MEAxis *axisNorth;
+@property (nonatomic, strong) MEAxis *axisSouth;
 
 @end
