@@ -8,5 +8,7 @@ MELinePlot/*
 !METips.m
 !MEPoint.h
 !MEPoint.m
+!MEAxis.h
+!MEAxis.m
 MELinePlotTests/
 .DS_Store
