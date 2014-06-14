@@ -9,10 +9,12 @@
 #import "METip.h"
 #import "MEPoint.h"
 #import "MEAxis.h"
+#import "MEShared.h"
 
 @interface MELinePlotView : UIView
 
-@property (nonatomic, strong) MEPoint *pointZero;
+@property (nonatomic, strong) MEShared *shared;
+
 @property (nonatomic, strong) MEAxis *axisEast;
 @property (nonatomic, strong) MEAxis *axisWest;
 @property (nonatomic, strong) MEAxis *axisNorth;

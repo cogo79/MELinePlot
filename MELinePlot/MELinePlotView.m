@@ -25,15 +25,22 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    
-    if (_pointZero == nil) {
-        _pointZero = [MEPoint pointWithX:30 y:rect.size.height-30];
+    if (_shared == nil) {
+        _shared = [[MEShared alloc] init];
+    }
+    if (_shared.pointZero == nil) {
+        _shared.pointZero = [MEPoint pointWithX:30 y:rect.size.height-30];
     }
     if (_axisEast == nil) {
-        _axisEast = [MEAxis axisWithLength:50 linePlotView:self];
+        _axisEast = [MEAxis axisWithLength:50 shared:self.shared];
+    }
+    if (_axisEast.color == nil) {
+        _axisEast.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     }
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    [_axisEast drawWithRect:rect context:ctx];
     
 }
 

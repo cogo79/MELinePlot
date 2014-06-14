@@ -7,17 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MELinePlotView.h"
+#import <UIKit/UIKit.h>
+#import "MEShared.h"
 
 @interface MEAxis : NSObject
 
-@property (nonatomic, weak) MELinePlotView *linePlotView;
+@property (nonatomic, strong) MEShared *shared;
 @property int lengthInPixels;
-@property (nonatomic, strong) UIColor *axisColor;
+@property (nonatomic, strong) UIColor *color;
 
--(id) initWithLength:(int) length linePlotView:(MELinePlotView*) linePlotView;
+-(id) initWithLength:(int) length shared:(MEShared*) linePlotView;
 
-+(id) axisWithLength:(int) length linePlotView:(MELinePlotView*) linePlotView;
++(id) axisWithLength:(int) length shared:(MEShared*) linePlotView;
 
 -(void) drawWithRect:(CGRect)rect context:(CGContextRef) ctx;
 
