@@ -33,19 +33,19 @@
     return [[self alloc] initWithLength:length shared:shared];
 }
 
--(void) drawWithRect:(CGRect)rect context:(CGContextRef) ctx {
+-(void) draw {
     CGFloat axisColorRed = 0.0, axisColorGreen = 0.0, axisColorBlue = 0.0, axisColorAlpha = 0.0;
     [_color getRed:&axisColorRed green:&axisColorGreen blue:&axisColorBlue alpha:&axisColorAlpha];
     CGFloat axisColorCGFloat[4] = {axisColorRed, axisColorGreen, axisColorBlue, axisColorAlpha};
-    CGContextSetFillColor(ctx, axisColorCGFloat);
-    CGContextSetStrokeColor(ctx, axisColorCGFloat);
+    CGContextSetFillColor(_shared.ctx, axisColorCGFloat);
+    CGContextSetStrokeColor(_shared.ctx, axisColorCGFloat);
     
-    CGContextBeginPath(ctx);
+    CGContextBeginPath(_shared.ctx);
     
-    CGContextMoveToPoint(ctx, _shared.pointZero.x, _shared.pointZero.y);
-    CGContextAddLineToPoint(ctx, _shared.pointZero.x + _lengthInPixels, _shared.pointZero.y);
+    CGContextMoveToPoint(_shared.ctx, _shared.pointZero.x, _shared.pointZero.y);
+    CGContextAddLineToPoint(_shared.ctx, _shared.pointZero.x + _lengthInPixels, _shared.pointZero.y);
     
-    CGContextStrokePath(ctx);
+    CGContextStrokePath(_shared.ctx);
 }
 
 @end

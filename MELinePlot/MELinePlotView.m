@@ -28,6 +28,10 @@
     if (_shared == nil) {
         _shared = [[MEShared alloc] init];
     }
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    _shared.ctx = ctx;
+    _shared.rect = rect;
+    
     if (_shared.pointZero == nil) {
         _shared.pointZero = [MEPoint pointWithX:30 y:rect.size.height-30];
     }
@@ -38,9 +42,9 @@
         _axisEast.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     }
     
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
     
-    [_axisEast drawWithRect:rect context:ctx];
+    
+    [_axisEast draw];
     
 }
 

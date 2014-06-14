@@ -20,7 +20,7 @@
 
 +(id) axisWithLength:(int) length shared:(MEShared*) linePlotView;
 
--(void) drawWithRect:(CGRect)rect context:(CGContextRef) ctx;
+-(void) draw;
 
 @end
 
