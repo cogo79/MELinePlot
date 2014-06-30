@@ -7,8 +7,8 @@
 
 #import "MELinePlotView.h"
 
-
 @implementation MELinePlotView
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -35,9 +35,12 @@
     if (_shared.pointZero == nil) {
         _shared.pointZero = [MEPoint pointWithX:30 y:rect.size.height-30];
     }
+    
     if (_axisEast == nil) {
+        NSLog(@"So is it nil ???");
         _axisEast = [MEAxis axisWithLength:50 shared:self.shared];
     }
+     
     if (_axisEast.color == nil) {
         _axisEast.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     }
